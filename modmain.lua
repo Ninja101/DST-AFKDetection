@@ -5,6 +5,7 @@ local max_afk_time = GetModConfigData( "max_afk_time" )
 local max_afk_action = GetModConfigData( "max_afk_action" )
 local stop_death = GetModConfigData( "stop_death" )
 local stop_hunger = GetModConfigData( "hunger_decrease" )
+local stop_sanity = GetModConfigData( "stop_sanity" )
 
 local last_move = { }
 
@@ -18,6 +19,7 @@ local function OnPlayerPostInit( inst )
 		inst.components.afk.max_afk_action = max_afk_action
 		inst.components.afk.stop_death = stop_death
 		inst.components.afk.stop_hunger = stop_hunger
+		inst.components.afk.stop_sanity = stop_sanity
 	end
 end
 

@@ -11,9 +11,11 @@ local AFK = Class( function( self, inst )
 	self.max_afk_action = AFK_ACTION_DISABLE
 	self.stop_death = true
 	self.stop_hunger = true
+	self.stop_sanity = true
 
 	self.afk = false
 	self.afk_time = GetTime( )
+	self.afk_sanity = 0
 
 	inst:ListenForEvent( "locomote", function( )
 		if inst.components.locomotor.wantstomoveforward then
@@ -32,7 +34,7 @@ local AFK = Class( function( self, inst )
 	inst:ListenForEvent( "performaction", resetFn )
 	inst:ListenForEvent( "buildsuccess", resetFn )
 	inst:ListenForEvent( "itemget", resetFn )
-	inst:ListenForEvent( "ontalk", resetFn )
+	-- inst:ListenForEvent( "ontalk", resetFn )
 
 	self.inst:DoPeriodicTask( 1, updateFn )
 end )
@@ -49,6 +51,10 @@ function AFK:UpdateAFKTime( )
 	if not self.afk then
 		self.afk = true
 
+		if self.inst.components.sanity ~= nil then
+			self.afk_sanity = self.inst.components.sanity:GetPercent( )
+		end
+
 		print( "[N101] IsAFK: ", self.inst )
 		TheNet:Announce( self.inst.name .. " is AFK" )
 	end
@@ -61,6 +67,10 @@ function AFK:UpdateAFKTime( )
 		if self.inst.components.hunger ~= nil and self.stop_hunger then
 			self.inst.components.hunger:Pause( )
 		end
+
+		if self.inst.components.sanity ~= nil and self.stop_sanity and self.afk_sanity > 0 then
+			self.inst.components.sanity:SetPercent( self.afk_sanity )
+		end
 	end
 end
 
@@ -69,6 +79,7 @@ function AFK:ResetAFKTime( exceeded_time )
 
 	if self.afk then
 		self.afk = false
+		self.afk_sanity = 0
 
 		if exceeded_time then
 			self.afk_time = GetTime( ) + 999999 -- Don't let it make them AFK again until the activity hooks have set the value

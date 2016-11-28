@@ -1,7 +1,7 @@
 name = "AFK Detection"
 description = "Stops hunger decreasing, being killed my darkness when AFK"
 author = "Ninja101"
-version = "1.6.1"
+version = "1.7"
 forumthread = ""
 icon_atlas = "modicon.xml"
 icon = "modicon.tex"
@@ -76,6 +76,16 @@ configuration_options =
 	{
 		name = "stop_death",
 		label = "Prevent Death",
+		options =
+		{
+			{description = "Off", data = false},
+			{description = "On", data = true}
+		},
+		default = true
+	},
+	{
+		name = "stop_sanity",
+		label = "Prevent Sanity Drain",
 		options =
 		{
 			{description = "Off", data = false},
