@@ -1,7 +1,7 @@
 name = "AFK Detection"
 description = "Stops hunger decreasing, being killed my darkness when AFK"
 author = "Ninja101"
-version = "1.7"
+version = "1.7.1"
 forumthread = ""
 icon_atlas = "modicon.xml"
 icon = "modicon.tex"

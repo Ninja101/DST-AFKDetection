@@ -27,14 +27,13 @@ local AFK = Class( function( self, inst )
 	local function resetFn( ) self:ResetAFKTime( false ) end
 
 	inst:ListenForEvent( "buildstructure", resetFn )
+	inst:ListenForEvent( "builditem", resetFn )
 	inst:ListenForEvent( "performaction", resetFn )
 	inst:ListenForEvent( "equip", resetFn )
 	inst:ListenForEvent( "unequip", resetFn )
-	inst:ListenForEvent( "oneatsomething", resetFn )
-	inst:ListenForEvent( "performaction", resetFn )
-	inst:ListenForEvent( "buildsuccess", resetFn )
+	inst:ListenForEvent( "oneat", resetFn )
 	inst:ListenForEvent( "itemget", resetFn )
-	-- inst:ListenForEvent( "ontalk", resetFn )
+	inst:ListenForEvent( "changeclothes", resetFn )
 
 	self.inst:DoPeriodicTask( 1, updateFn )
 end )
